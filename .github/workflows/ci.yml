@@ -1,0 +1,20 @@
+name: Voting App CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Build Vote App Image
+        run: docker build -t my-vote-app ./vote
+
+      - name: Build Result App Image
+        run: docker build -t my-result-app ./result
