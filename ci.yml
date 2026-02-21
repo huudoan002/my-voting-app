@@ -1,0 +1,25 @@
+name: Voting App CI
+
+# 1. Kích hoạt khi có người đẩy code lên nhánh main
+on:
+  push:
+    branches:
+      - main
+
+# 2. Nhiệm vụ giao cho Robot
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Thuê một con server Ubuntu mới toanh của GitHub
+
+    steps:
+      # Bước 2.1: Lấy code từ kho về server
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # Bước 2.2: Thử Build cái App Python (Vote)
+      - name: Build Vote App Image
+        run: docker build -t my-vote-app ./vote
+
+      # Bước 2.3: Thử Build cái App Nodejs (Result)
+      - name: Build Result App Image
+        run: docker build -t my-result-app ./result
